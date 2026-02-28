@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import BottomNav, { ViewType } from "@/components/BottomNav";
+import AdaptiveNav, { ViewType } from "@/components/AdaptiveNav";
 import HubView from "@/views/HubView";
 import GemVault from "@/views/GemVault";
 import AgentBuilder from "@/views/AgentBuilder";
@@ -25,8 +25,8 @@ const Index = () => {
       {/* Ambient glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-ruby/5 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Main content */}
-      <main className="relative z-10 max-w-lg mx-auto px-4 pt-12 pb-24">
+      {/* Main content - shifts right on desktop for sidebar */}
+      <main className="relative z-10 max-w-lg mx-auto px-4 pt-12 pb-24 md:max-w-2xl lg:max-w-5xl lg:ml-56 lg:mr-auto lg:px-8 lg:pt-8 lg:pb-12 xl:max-w-6xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeView}
@@ -40,7 +40,7 @@ const Index = () => {
         </AnimatePresence>
       </main>
 
-      <BottomNav active={activeView} onChange={setActiveView} />
+      <AdaptiveNav active={activeView} onChange={setActiveView} />
     </div>
   );
 };
