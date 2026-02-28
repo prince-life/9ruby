@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
+# 9 Ruby Command Center
 
-## Project info
+A unified, AI-powered command center combining robust automation infrastructure with a premium UI/UX. Built with React, TypeScript, Vite, shadcn/ui, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Live Deployment
 
-## How can I edit this code?
+> **[Open App →](https://ruby-command.lovable.app)**
 
-There are several ways of editing your application.
+## ✨ Features
 
-**Use Lovable**
+### 🏠 Hub
+The main command center dashboard with real-time terminal output, quick-action shortcuts (Scan NFC, Auto-Pilot, Emergency Stop), and live system stats (active gems, automations, devices, uptime).
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 💎 Gem Vault
+Collect and activate NFC-linked gems (Ruby, Sapphire, Emerald, Amber, Amethyst, Topaz, Diamond). Each gem maps to an AI agent with a live power meter and one-tap activation.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🤖 Agent Builder
+Create and manage trigger→action automations. Built-in AI optimization indicator continuously tunes active workflows. Supports device events, NFC scans, power alerts, and more.
 
-**Use your preferred IDE**
+### 🧠 Neural Settings
+Toggle adaptive AI behaviours (Auto-Sync, Learning Mode, Cross-Platform Bridge) and view the System Intelligence bar chart across five metrics: Speed, Accuracy, Learning, Security, and Sync.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🐙 GitHub Integration
+Connect your GitHub account via a Personal Access Token to:
+- Browse your repositories (public and private)
+- View language, stars, forks, and default branch at a glance
+- Inspect the 10 most recent commits per repository with direct links
+- Open any repo or commit in GitHub with a single click
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+> **Required token scopes:** `repo`, `read:user`
 
-Follow these steps:
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | React 18 + TypeScript |
+| Build | Vite |
+| Styling | Tailwind CSS + shadcn/ui |
+| Animation | Framer Motion |
+| State / Data | TanStack Query |
+| Routing | React Router v6 |
+| Testing | Vitest + Testing Library |
+
+## 🏃 Running Locally
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 1. Clone the repository
+git clone https://github.com/9Ruby-Git/ruby-command.git
+cd ruby-command
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 3. Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🧪 Tests
 
-**Use GitHub Codespaces**
+```sh
+npm test
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📦 Build for Production
 
-## What technologies are used for this project?
+```sh
+npm run build
+```
 
-This project is built with:
+Output is written to `dist/`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📖 GitHub Integration — Usage Guide
 
-## How can I deploy this project?
+1. Navigate to the **GitHub** tab (bottom nav on mobile, sidebar on desktop).
+2. Generate a Personal Access Token in **GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens** (or classic tokens) with `repo` and `read:user` scopes.
+3. Paste the token and press **Connect to GitHub**.
+4. Your repositories are loaded automatically, sorted by most recently updated.
+5. Click any repository card to load its 10 most recent commits in the right panel.
+6. Use the **↗** icon on any card to open it directly in GitHub.
+7. Click **Disconnect** at any time to clear the session (your token is never stored on a server).
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+## 🤝 Contributing
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Pull requests and issues are welcome. Please follow the existing code style and run `npm run lint` before submitting.
