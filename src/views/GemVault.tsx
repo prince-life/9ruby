@@ -28,12 +28,12 @@ const GemVault = () => {
   return (
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <h1 className="text-2xl font-bold tracking-tight">Gem Vault</h1>
+        <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">Gem Vault</h1>
         <p className="text-xs text-muted-foreground mt-1">Collect & activate NFC gems</p>
       </motion.div>
 
-      {/* Gem Scroll */}
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 scrollbar-hide">
+      {/* Mobile: horizontal scroll | Desktop: grid */}
+      <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 scrollbar-hide lg:grid lg:grid-cols-7 lg:overflow-visible lg:mx-0 lg:px-0 lg:gap-6">
         {gems.map(gem => (
           <Gem3D
             key={gem.type}
@@ -51,7 +51,7 @@ const GemVault = () => {
         <GlassCard
           key={selected}
           variant="strong"
-          className="p-6 space-y-4"
+          className="p-6 space-y-4 lg:max-w-xl"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
@@ -90,7 +90,7 @@ const GemVault = () => {
           {/* Action Button */}
           <motion.button
             whileTap={{ scale: 0.97 }}
-            className={`w-full py-3 rounded-xl font-semibold text-sm transition-all ${
+            className={`w-full py-3 rounded-xl font-semibold text-sm transition-all min-h-[44px] ${
               selectedGem.active
                 ? "bg-gradient-to-r from-ruby to-ruby-glow text-primary-foreground ruby-glow-sm"
                 : "glass border border-border text-muted-foreground"
