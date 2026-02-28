@@ -83,6 +83,9 @@
   .glass-nav {
     @apply bg-[hsl(var(--glass)/0.06)] backdrop-blur-2xl border-t border-[hsl(var(--glass-border)/0.1)];
   }
+  .glass-sidebar {
+    @apply bg-[hsl(var(--glass)/0.04)] backdrop-blur-2xl border-r border-[hsl(var(--glass-border)/0.08)];
+  }
   .ruby-glow {
     box-shadow: 0 0 30px hsl(var(--ruby) / 0.4), 0 0 60px hsl(var(--ruby) / 0.2);
   }
