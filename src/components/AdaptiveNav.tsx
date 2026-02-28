@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { Home, Gem, Bot, Brain } from "lucide-react";
+import { Home, Gem, Bot, Brain, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-export type ViewType = "hub" | "gems" | "agents" | "neural";
+export type ViewType = "hub" | "gems" | "agents" | "neural" | "github";
 
 interface AdaptiveNavProps {
   active: ViewType;
@@ -15,6 +15,7 @@ const tabs: { id: ViewType; icon: typeof Home; label: string }[] = [
   { id: "gems", icon: Gem, label: "Gems" },
   { id: "agents", icon: Bot, label: "Agents" },
   { id: "neural", icon: Brain, label: "Neural" },
+  { id: "github", icon: Github, label: "GitHub" },
 ];
 
 const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {

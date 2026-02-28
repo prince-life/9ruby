@@ -5,12 +5,14 @@ import HubView from "@/views/HubView";
 import GemVault from "@/views/GemVault";
 import AgentBuilder from "@/views/AgentBuilder";
 import NeuralSettings from "@/views/NeuralSettings";
+import GitHubView from "@/views/GitHubView";
 
 const views: Record<ViewType, React.FC> = {
   hub: HubView,
   gems: GemVault,
   agents: AgentBuilder,
   neural: NeuralSettings,
+  github: GitHubView,
 };
 
 const Index = () => {
