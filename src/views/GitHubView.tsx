@@ -162,6 +162,9 @@ const GitHubView = () => {
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
               Repositories ({repos.length})
             </h2>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              A <strong>repository</strong> (repo) is a storage space where your project lives — it contains all of your project's files, revision history, and collaboration tools such as issues and pull requests.
+            </p>
             <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1 scrollbar-hide">
               <AnimatePresence>
                 {repos.map((repo, i) => (
