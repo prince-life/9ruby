@@ -33,76 +33,80 @@ const NeuralSettings = () => {
   const toggle = (id: string) => setToggles(prev => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0">
+    <div className="space-y-8 lg:grid lg:grid-cols-2 lg:gap-12 lg:space-y-0">
       {/* Left Column */}
-      <div className="space-y-6">
+      <div className="space-y-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">Neural Settings</h1>
-          <p className="text-xs text-muted-foreground mt-1">Adaptive system configuration</p>
+          <span className="tech-label mb-2 block opacity-50">CONFIG: NEURAL_SYS</span>
+          <h1 className="font-headline text-4xl font-bold tracking-tight uppercase lg:text-5xl">Neural Settings</h1>
+          <p className="tech-label mt-2">Adaptive system configuration</p>
         </motion.div>
 
         {/* Toggles */}
-        <div className="space-y-3">
+        <div className="space-y-[1px] bg-border">
           {settings.map((setting, i) => (
-            <GlassCard
+            <motion.div
               key={setting.id}
-              className="p-4"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              className="bg-[hsl(var(--surface))] p-5"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: i * 0.1 }}
             >
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 lg:w-12 lg:h-12">
-                  <setting.icon size={18} className="text-ruby" />
+                <div className="w-10 h-10 border border-border flex items-center justify-center flex-shrink-0 lg:w-12 lg:h-12">
+                  <setting.icon size={16} strokeWidth={1.5} className="text-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium">{setting.label}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{setting.description}</p>
+                  <p className="font-mono text-[11px] uppercase tracking-tech font-medium">{setting.label}</p>
+                  <p className="tech-label mt-0.5 opacity-60">{setting.description}</p>
                 </div>
                 <button
                   onClick={() => toggle(setting.id)}
-                  className={`w-12 h-7 rounded-full transition-colors duration-300 flex items-center px-1 flex-shrink-0 min-w-[48px] min-h-[44px] ${
-                    toggles[setting.id] ? "bg-ruby" : "bg-muted"
+                  className={`w-12 h-6 transition-colors duration-300 flex items-center px-1 flex-shrink-0 min-w-[48px] min-h-[44px] ${
+                    toggles[setting.id] ? "bg-foreground" : "bg-muted"
                   }`}
                 >
                   <motion.div
-                    className="w-5 h-5 rounded-full bg-primary-foreground"
-                    animate={{ x: toggles[setting.id] ? 18 : 0 }}
+                    className={`w-4 h-4 ${toggles[setting.id] ? "bg-background" : "bg-muted-foreground"}`}
+                    animate={{ x: toggles[setting.id] ? 22 : 0 }}
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 </button>
               </div>
-            </GlassCard>
+            </motion.div>
           ))}
         </div>
       </div>
 
       {/* Right Column / Chart */}
       <div>
-        <GlassCard className="p-6 lg:p-8">
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp size={16} className="text-ruby" />
-            <h2 className="text-sm font-semibold lg:text-base">System Intelligence</h2>
+        <GlassCard variant="strong" className="p-6 lg:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <TrendingUp size={14} strokeWidth={1.5} className="text-foreground" />
+              <span className="font-mono text-[11px] uppercase tracking-tech font-medium">System Intelligence</span>
+            </div>
+            <span className="tech-label opacity-40">DATA_VIS</span>
           </div>
-          <div className="grid grid-cols-5 gap-2 lg:gap-4">
+          <div className="grid grid-cols-5 gap-3 lg:gap-4">
             {radarData.map((d, i) => (
               <motion.div
                 key={d.label}
                 className="flex flex-col items-center gap-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={{ delay: i * 0.08 }}
               >
-                <div className="relative w-full h-24 lg:h-40 flex items-end justify-center">
+                <div className="relative w-full h-24 lg:h-40 flex items-end justify-center border-b border-border">
                   <motion.div
-                    className="w-6 lg:w-8 rounded-t-md bg-gradient-to-t from-ruby to-ruby-glow"
+                    className="w-5 lg:w-6 bg-foreground"
                     initial={{ height: 0 }}
                     animate={{ height: `${d.value}%` }}
                     transition={{ duration: 0.8, delay: i * 0.1, ease: "easeOut" }}
                   />
                 </div>
-                <span className="text-[10px] lg:text-xs text-muted-foreground">{d.label}</span>
-                <span className="text-xs lg:text-sm font-mono font-bold">{d.value}%</span>
+                <span className="tech-label">{d.label}</span>
+                <span className="font-mono text-xs font-bold">{d.value}%</span>
               </motion.div>
             ))}
           </div>

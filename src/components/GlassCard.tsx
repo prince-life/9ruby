@@ -10,11 +10,11 @@ const GlassCard = ({ variant = "default", className, children, ...props }: Glass
   return (
     <motion.div
       className={cn(
-        variant === "strong" ? "glass-strong" : "glass",
-        variant === "interactive" && "cursor-pointer hover:bg-[hsl(var(--glass)/0.1)] transition-colors duration-300",
+        variant === "strong" ? "surface-card-elevated" : "surface-card",
+        variant === "interactive" && "cursor-pointer hover:bg-[hsl(0,0%,12%)] transition-colors duration-300",
         className
       )}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
       {...props}

@@ -101,36 +101,37 @@ const GitHubView = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center justify-between">
+    <div className="space-y-8">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl flex items-center gap-2">
-            <Github size={24} className="text-ruby" />
+          <span className="tech-label mb-2 block opacity-50">MODULE: INTEGRATION</span>
+          <h1 className="font-headline text-4xl font-bold tracking-tight uppercase lg:text-5xl flex items-center gap-3">
+            <Github size={28} strokeWidth={1.5} />
             GitHub
           </h1>
-          <p className="text-xs text-muted-foreground mt-1">
-            {token ? `Connected as @${username}` : "Connect your GitHub account"}
+          <p className="tech-label mt-2">
+            {token ? `CONNECTED // @${username.toUpperCase()}` : "Connect your GitHub account"}
           </p>
         </div>
         {token && (
           <button
             onClick={disconnect}
-            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-full glass transition-colors"
+            className="flex items-center gap-1.5 tech-label border border-border px-3 py-1.5 hover:bg-foreground hover:text-background transition-all"
           >
-            <Unlock size={12} /> Disconnect
+            <Unlock size={10} /> DISCONNECT
           </button>
         )}
       </motion.div>
 
       {!token ? (
-        <GlassCard variant="strong" className="p-6 space-y-4 lg:max-w-md">
-          <div className="flex items-center gap-2 text-sm font-medium">
-            <Lock size={14} className="text-ruby" />
-            Personal Access Token
+        <GlassCard variant="strong" className="p-6 space-y-5 lg:max-w-md">
+          <div className="flex items-center gap-2">
+            <Lock size={12} className="text-foreground" />
+            <span className="font-mono text-[10px] uppercase tracking-tech font-medium">Personal Access Token</span>
           </div>
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            Enter a GitHub Personal Access Token with <code className="bg-secondary px-1 rounded text-xs">repo</code> and{" "}
-            <code className="bg-secondary px-1 rounded text-xs">read:user</code> scopes to connect.
+          <p className="tech-label leading-relaxed opacity-60">
+            Enter a GitHub PAT with <code className="bg-muted px-1 text-foreground">repo</code> and{" "}
+            <code className="bg-muted px-1 text-foreground">read:user</code> scopes.
           </p>
           <input
             type="password"
@@ -138,72 +139,73 @@ const GitHubView = () => {
             onChange={e => setInputToken(e.target.value)}
             onKeyDown={e => e.key === "Enter" && connect()}
             placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-            className="w-full bg-secondary/50 border border-border rounded-xl px-4 py-3 text-sm font-mono outline-none focus:border-ruby/50 transition-colors"
+            className="w-full bg-transparent border-0 border-b border-border px-0 py-3 font-mono text-[10px] uppercase tracking-widest outline-none focus:border-foreground transition-colors placeholder:text-muted-foreground/40"
           />
-          {error && <p className="text-xs text-destructive">{error}</p>}
+          {error && <p className="tech-label text-destructive">{error}</p>}
           <motion.button
-            whileTap={{ scale: 0.97 }}
+            whileTap={{ scale: 0.98 }}
             onClick={connect}
             disabled={loading || !inputToken.trim()}
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-ruby to-ruby-glow text-primary-foreground font-semibold text-sm ruby-glow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full py-3 bg-foreground text-background font-mono text-[10px] uppercase tracking-tech-wider border border-foreground disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:bg-foreground/90 transition-colors"
           >
             {loading ? (
-              <RefreshCw size={16} className="animate-spin" />
+              <RefreshCw size={14} className="animate-spin" />
             ) : (
-              <Github size={16} />
+              <Github size={14} />
             )}
-            {loading ? "Connecting…" : "Connect to GitHub"}
+            {loading ? "Connecting..." : "Connect to GitHub"}
           </motion.button>
         </GlassCard>
       ) : (
-        <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
+        <div className="space-y-8 lg:grid lg:grid-cols-2 lg:gap-[1px] lg:bg-border lg:space-y-0">
           {/* Repositories */}
-          <div className="space-y-3">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Repositories ({repos.length})
-            </h2>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              A <strong>repository</strong> (repo) is a storage space where your project lives — it contains all of your project's files, revision history, and collaboration tools such as issues and pull requests.
-            </p>
-            <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1 scrollbar-hide">
+          <div className="space-y-0 lg:bg-background lg:p-0">
+            <div className="mb-3 lg:px-0">
+              <span className="tech-label opacity-50">
+                REPOSITORIES ({repos.length})
+              </span>
+              <p className="tech-label mt-1 opacity-40 leading-relaxed">
+                A repository contains project files, history, and collaboration tools.
+              </p>
+            </div>
+            <div className="space-y-[1px] bg-border max-h-[60vh] overflow-y-auto scrollbar-hide">
               <AnimatePresence>
                 {repos.map((repo, i) => (
-                  <GlassCard
+                  <motion.div
                     key={repo.id}
-                    variant="interactive"
-                    className={`p-4 cursor-pointer transition-colors ${selectedRepo?.id === repo.id ? "border-ruby/40 bg-ruby/5" : ""}`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.04 }}
+                    className={`bg-[hsl(var(--surface))] p-4 cursor-pointer hover:bg-[hsl(var(--surface-elevated))] transition-colors ${selectedRepo?.id === repo.id ? "bg-[hsl(var(--surface-elevated))] border-l-2 border-l-foreground" : ""}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.03 }}
                     onClick={() => fetchCommits(repo)}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
                           {repo.private ? (
-                            <Lock size={11} className="text-muted-foreground flex-shrink-0" />
+                            <Lock size={9} className="text-muted-foreground flex-shrink-0" />
                           ) : (
-                            <Unlock size={11} className="text-muted-foreground flex-shrink-0" />
+                            <Unlock size={9} className="text-muted-foreground flex-shrink-0" />
                           )}
-                          <span className="text-sm font-medium truncate">{repo.name}</span>
+                          <span className="font-mono text-[11px] uppercase tracking-tech truncate">{repo.name}</span>
                           {repo.language && (
-                            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-secondary text-muted-foreground flex-shrink-0">
+                            <span className="tech-label px-1.5 py-0.5 border border-border flex-shrink-0">
                               {repo.language}
                             </span>
                           )}
                         </div>
                         {repo.description && (
-                          <p className="text-xs text-muted-foreground mt-1 truncate">{repo.description}</p>
+                          <p className="tech-label mt-1 opacity-50 truncate">{repo.description}</p>
                         )}
-                        <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-3 mt-2 tech-label">
                           <span className="flex items-center gap-1">
-                            <Star size={11} /> {repo.stargazers_count}
+                            <Star size={9} /> {repo.stargazers_count}
                           </span>
                           <span className="flex items-center gap-1">
-                            <GitFork size={11} /> {repo.forks_count}
+                            <GitFork size={9} /> {repo.forks_count}
                           </span>
                           <span className="flex items-center gap-1">
-                            <GitBranch size={11} /> {repo.default_branch}
+                            <GitBranch size={9} /> {repo.default_branch}
                           </span>
                         </div>
                       </div>
@@ -212,53 +214,55 @@ const GitHubView = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={e => e.stopPropagation()}
-                        className="text-muted-foreground hover:text-foreground flex-shrink-0 mt-0.5"
+                        className="text-muted-foreground hover:text-foreground flex-shrink-0 mt-0.5 transition-colors"
                       >
-                        <ExternalLink size={14} />
+                        <ExternalLink size={12} />
                       </a>
                     </div>
-                  </GlassCard>
+                  </motion.div>
                 ))}
               </AnimatePresence>
             </div>
           </div>
 
           {/* Commits */}
-          <div className="space-y-3">
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              {selectedRepo ? `Commits — ${selectedRepo.name}` : "Select a repo to view commits"}
-            </h2>
+          <div className="space-y-0 lg:bg-background lg:p-0">
+            <div className="mb-3 lg:px-0">
+              <span className="tech-label opacity-50">
+                {selectedRepo ? `COMMITS // ${selectedRepo.name.toUpperCase()}` : "SELECT_REPO"}
+              </span>
+            </div>
             {commitsLoading ? (
               <div className="flex items-center justify-center py-12">
-                <RefreshCw size={20} className="animate-spin text-ruby" />
+                <RefreshCw size={16} className="animate-spin text-foreground" />
               </div>
             ) : selectedRepo ? (
-              <div className="space-y-2 max-h-[60vh] overflow-y-auto pr-1 scrollbar-hide">
+              <div className="space-y-[1px] bg-border max-h-[60vh] overflow-y-auto scrollbar-hide">
                 {commitsError && (
-                  <p className="text-xs text-destructive text-center py-4">{commitsError}</p>
+                  <p className="tech-label text-destructive text-center py-4">{commitsError}</p>
                 )}
                 {!commitsError && commits.length === 0 && !commitsLoading && (
-                  <p className="text-xs text-muted-foreground text-center py-8">No commits found</p>
+                  <p className="tech-label text-center py-8 opacity-40">No commits found</p>
                 )}
                 {commits.map((commit, i) => (
-                  <GlassCard
+                  <motion.div
                     key={commit.sha}
-                    className="p-4"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
+                    className="bg-[hsl(var(--surface))] p-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.03 }}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate leading-snug">
+                        <p className="font-mono text-[11px] uppercase tracking-wide truncate leading-snug">
                           {commit.commit.message.split("\n")[0]}
                         </p>
-                        <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-2 mt-1 tech-label">
                           <span>{commit.commit.author.name}</span>
                           <span>·</span>
                           <span>{formatDate(commit.commit.author.date)}</span>
                         </div>
-                        <span className="text-[10px] font-mono text-ruby/70 mt-1 block">
+                        <span className="tech-label opacity-40 mt-1 block">
                           {commit.sha.slice(0, 7)}
                         </span>
                       </div>
@@ -266,19 +270,19 @@ const GitHubView = () => {
                         href={commit.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground flex-shrink-0 mt-0.5"
+                        className="text-muted-foreground hover:text-foreground flex-shrink-0 mt-0.5 transition-colors"
                       >
-                        <ExternalLink size={14} />
+                        <ExternalLink size={12} />
                       </a>
                     </div>
-                  </GlassCard>
+                  </motion.div>
                 ))}
               </div>
             ) : (
-              <GlassCard className="p-8 text-center">
-                <GitBranch size={32} className="text-muted-foreground/30 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">Click a repository to view its recent commits</p>
-              </GlassCard>
+              <div className="surface-card p-8 text-center">
+                <GitBranch size={24} strokeWidth={1} className="text-muted-foreground/30 mx-auto mb-3" />
+                <p className="tech-label opacity-40">Click a repository to view commits</p>
+              </div>
             )}
           </div>
         </div>

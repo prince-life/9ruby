@@ -10,29 +10,29 @@ interface AdaptiveNavProps {
   onChange: (view: ViewType) => void;
 }
 
-const tabs: { id: ViewType; icon: typeof Home; label: string }[] = [
-  { id: "hub", icon: Home, label: "Hub" },
-  { id: "gems", icon: Gem, label: "Gems" },
-  { id: "agents", icon: Bot, label: "Agents" },
-  { id: "neural", icon: Brain, label: "Neural" },
-  { id: "github", icon: Github, label: "GitHub" },
+const tabs: { id: ViewType; icon: typeof Home; label: string; code: string }[] = [
+  { id: "hub", icon: Home, label: "Hub", code: "CORE" },
+  { id: "gems", icon: Gem, label: "Gems", code: "VAULT" },
+  { id: "agents", icon: Bot, label: "Agents", code: "AUTO" },
+  { id: "neural", icon: Brain, label: "Neural", code: "NRAL" },
+  { id: "github", icon: Github, label: "GitHub", code: "GIT" },
 ];
 
 const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {
   return (
     <>
       {/* Desktop Sidebar (>1024px) */}
-      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 z-50 w-56 flex-col glass-sidebar py-8 px-4">
+      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 z-50 w-56 flex-col surface-sidebar py-8 px-4">
         {/* Logo */}
-        <div className="mb-10 px-2">
-          <h2 className="text-lg font-bold tracking-tight">
-            <span className="text-gradient-ruby">9 Ruby</span>
+        <div className="mb-12 px-2">
+          <h2 className="font-headline text-xl font-bold tracking-[0.4em] uppercase">
+            NVX
           </h2>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Command Center v2.1</p>
+          <p className="tech-label mt-2 opacity-50">SYSTEM_ACTIVE</p>
         </div>
 
         {/* Nav Items */}
-        <nav className="flex flex-col gap-1 flex-1">
+        <nav className="flex flex-col gap-0.5 flex-1">
           {tabs.map(tab => {
             const isActive = active === tab.id;
             return (
@@ -40,21 +40,23 @@ const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {
                 key={tab.id}
                 onClick={() => onChange(tab.id)}
                 className={cn(
-                  "relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 outline-none",
+                  "relative flex items-center gap-3 px-4 py-3 text-left transition-all duration-200 outline-none border border-transparent",
                   isActive
-                    ? "bg-ruby/10 text-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                    ? "bg-[hsl(0,0%,12%)] text-foreground border-[hsl(0,0%,12%)]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-[hsl(0,0%,8%)]"
                 )}
               >
                 {isActive && (
                   <motion.div
                     layoutId="sidebar-active"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-gradient-to-b from-ruby to-ruby-glow"
+                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-foreground"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
-                <tab.icon size={18} className={cn(isActive ? "text-ruby" : "text-muted-foreground")} />
-                <span>{tab.label}</span>
+                <tab.icon size={16} strokeWidth={1.5} className={cn(isActive ? "text-foreground" : "text-muted-foreground")} />
+                <div className="flex flex-col">
+                  <span className="font-mono text-[10px] uppercase tracking-tech-wide">{tab.label}</span>
+                </div>
               </button>
             );
           })}
@@ -62,13 +64,13 @@ const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {
 
         {/* Status */}
         <div className="px-2 flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-          <span className="text-xs text-emerald font-medium">System Online</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse-glow" />
+          <span className="tech-label">ONLINE</span>
         </div>
       </aside>
 
       {/* Mobile/Tablet Bottom Nav (<1024px) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 glass-nav safe-area-bottom">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 surface-nav safe-area-bottom">
         <div className="max-w-lg mx-auto flex items-center justify-around py-2 px-4 md:max-w-2xl">
           {tabs.map(tab => {
             const isActive = active === tab.id;
@@ -81,22 +83,23 @@ const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {
                 {isActive && (
                   <motion.div
                     layoutId="nav-glow"
-                    className="absolute -top-1 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gradient-to-r from-ruby to-ruby-glow"
+                    className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-[2px] bg-foreground"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
                 <tab.icon
-                  size={22}
+                  size={20}
+                  strokeWidth={1.5}
                   className={cn(
                     "transition-colors duration-200",
-                    isActive ? "text-ruby" : "text-muted-foreground"
+                    isActive ? "text-foreground" : "text-muted-foreground"
                   )}
                 />
                 <span className={cn(
-                  "text-[10px] font-medium transition-colors duration-200",
+                  "font-mono text-[8px] uppercase tracking-tech transition-colors duration-200",
                   isActive ? "text-foreground" : "text-muted-foreground"
                 )}>
-                  {tab.label}
+                  {tab.code}
                 </span>
               </button>
             );

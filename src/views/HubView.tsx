@@ -4,30 +4,29 @@ import GlassCard from "@/components/GlassCard";
 import TerminalLog from "@/components/TerminalLog";
 
 const quickActions = [
-  { icon: Scan, label: "Scan NFC", shortcut: "⌘+K", color: "from-ruby to-ruby-glow" },
-  { icon: Zap, label: "Auto-Pilot", shortcut: "⌘+P", color: "from-sapphire to-blue-400" },
-  { icon: OctagonX, label: "Emergency Stop", shortcut: "⌘+E", color: "from-destructive to-red-400" },
+  { icon: Scan, label: "Scan NFC", shortcut: "⌘+K", code: "ACT_SCAN" },
+  { icon: Zap, label: "Auto-Pilot", shortcut: "⌘+P", code: "ACT_AUTO" },
+  { icon: OctagonX, label: "Emergency Stop", shortcut: "⌘+E", code: "ACT_HALT" },
 ];
 
 const HubView = () => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
       <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex items-end justify-between"
       >
         <div>
-          <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">
-            <span className="text-gradient-ruby">9 Ruby</span>{" "}
-            <span className="text-foreground">Terminal</span>
+          <span className="tech-label mb-2 block opacity-50">SYSTEM_CORE // NODE_00</span>
+          <h1 className="font-headline text-4xl font-bold tracking-tight uppercase lg:text-5xl">
+            Terminal
           </h1>
-          <p className="text-xs text-muted-foreground mt-1">Command Center v2.1</p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
-          <span className="text-xs text-emerald font-medium">Online</span>
+          <div className="w-1.5 h-1.5 rounded-full bg-foreground animate-pulse" />
+          <span className="tech-label">ONLINE</span>
         </div>
       </motion.div>
 
@@ -36,48 +35,50 @@ const HubView = () => {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-sm font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Quick Actions</h2>
-        <div className="grid grid-cols-3 gap-3 lg:gap-4">
+        <span className="tech-label mb-4 block opacity-50">QUICK_ACTIONS</span>
+        <div className="grid grid-cols-3 gap-[1px] bg-border">
           {quickActions.map((action, i) => (
-            <GlassCard
+            <motion.button
               key={action.label}
-              variant="interactive"
-              className="p-4 flex flex-col items-center gap-3 min-h-[88px] lg:p-6 lg:flex-row lg:justify-start lg:gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              className="bg-[hsl(var(--surface))] p-5 flex flex-col items-center gap-3 min-h-[100px] hover:bg-[hsl(var(--surface-elevated))] transition-colors lg:flex-row lg:justify-start lg:gap-4 lg:items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: i * 0.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${action.color} flex items-center justify-center flex-shrink-0`}>
-                <action.icon size={20} className="text-primary-foreground" />
-              </div>
+              <action.icon size={18} strokeWidth={1.5} className="text-foreground" />
               <div className="flex flex-col items-center lg:items-start">
-                <span className="text-xs font-medium text-center lg:text-sm">{action.label}</span>
-                <span className="hidden lg:block text-[10px] text-muted-foreground font-mono mt-0.5">{action.shortcut}</span>
+                <span className="font-mono text-[10px] uppercase tracking-tech-wide">{action.label}</span>
+                <span className="hidden lg:block tech-label mt-1 opacity-40">{action.code}</span>
               </div>
-            </GlassCard>
+            </motion.button>
           ))}
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-4">
-        <GlassCard className="p-4">
-          <p className="text-xs text-muted-foreground">Active Gems</p>
-          <p className="text-2xl font-bold text-gradient-ruby mt-1">3/7</p>
-        </GlassCard>
-        <GlassCard className="p-4">
-          <p className="text-xs text-muted-foreground">Automations</p>
-          <p className="text-2xl font-bold text-sapphire mt-1">12</p>
-        </GlassCard>
-        <GlassCard className="p-4 hidden md:block">
-          <p className="text-xs text-muted-foreground">Devices</p>
-          <p className="text-2xl font-bold text-emerald mt-1">5</p>
-        </GlassCard>
-        <GlassCard className="p-4 hidden md:block">
-          <p className="text-xs text-muted-foreground">Uptime</p>
-          <p className="text-2xl font-bold text-amber mt-1">99.7%</p>
-        </GlassCard>
+      <div>
+        <span className="tech-label mb-4 block opacity-50">SYSTEM_METRICS</span>
+        <div className="grid grid-cols-2 gap-[1px] bg-border md:grid-cols-4">
+          {[
+            { label: "Active Gems", value: "3/7", code: "GEM_ACT" },
+            { label: "Automations", value: "12", code: "AUTO_CT" },
+            { label: "Devices", value: "5", code: "DEV_SYN" },
+            { label: "Uptime", value: "99.7%", code: "SYS_UPT" },
+          ].map((stat, i) => (
+            <GlassCard
+              key={stat.label}
+              className="p-5 bg-[hsl(var(--surface))] border-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: i * 0.05 }}
+            >
+              <span className="tech-label opacity-40">{stat.code}</span>
+              <p className="font-headline text-2xl font-bold mt-2 uppercase">{stat.value}</p>
+              <p className="tech-label mt-1">{stat.label}</p>
+            </GlassCard>
+          ))}
+        </div>
       </div>
     </div>
   );
