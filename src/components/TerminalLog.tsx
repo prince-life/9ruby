@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const mockLogs = [
-  { text: "→ System initialized. 9 Ruby Terminal v2.1.0", type: "system" },
+  { text: "→ System initialized. NovaVox Terminal v1.0.0", type: "system" },
   { text: "→ Neural mesh connecting...", type: "info" },
   { text: "✓ Device Alpha-7 synced successfully", type: "success" },
   { text: "→ AI optimization pass #247 complete", type: "info" },

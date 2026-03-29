@@ -26,9 +26,9 @@ const AdaptiveNav = ({ active, onChange }: AdaptiveNavProps) => {
         {/* Logo */}
         <div className="mb-10 px-2">
           <h2 className="text-lg font-bold tracking-tight">
-            <span className="text-gradient-ruby">9 Ruby</span>
+            <span className="text-gradient-ruby">NovaVox</span>
           </h2>
-          <p className="text-[10px] text-muted-foreground mt-0.5">Command Center v2.1</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">Web Command Center</p>
         </div>
 
         {/* Nav Items */}

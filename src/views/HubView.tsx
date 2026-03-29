@@ -20,10 +20,10 @@ const HubView = () => {
       >
         <div>
           <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">
-            <span className="text-gradient-ruby">9 Ruby</span>{" "}
+            <span className="text-gradient-ruby">NovaVox</span>{" "}
             <span className="text-foreground">Terminal</span>
           </h1>
-          <p className="text-xs text-muted-foreground mt-1">Command Center v2.1</p>
+          <p className="text-xs text-muted-foreground mt-1">Web Command Center</p>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald animate-pulse" />
