@@ -11,14 +11,14 @@ interface Gem3DProps {
   onClick?: () => void;
 }
 
-const gemColors: Record<GemType, { main: string; glow: string; label: string }> = {
-  ruby: { main: "from-ruby to-ruby-glow", glow: "shadow-[0_0_30px_hsl(347,77%,50%,0.5)]", label: "Ruby Core" },
-  sapphire: { main: "from-sapphire to-blue-400", glow: "shadow-[0_0_30px_hsl(217,91%,60%,0.5)]", label: "Sapphire Mind" },
-  emerald: { main: "from-emerald to-green-400", glow: "shadow-[0_0_30px_hsl(160,84%,39%,0.5)]", label: "Emerald Shield" },
-  amber: { main: "from-amber to-yellow-400", glow: "shadow-[0_0_30px_hsl(38,92%,50%,0.5)]", label: "Amber Flux" },
-  amethyst: { main: "from-amethyst to-purple-400", glow: "shadow-[0_0_30px_hsl(271,76%,53%,0.5)]", label: "Amethyst Sight" },
-  topaz: { main: "from-topaz to-orange-400", glow: "shadow-[0_0_30px_hsl(25,95%,53%,0.5)]", label: "Topaz Forge" },
-  diamond: { main: "from-diamond to-white", glow: "shadow-[0_0_30px_hsl(200,18%,80%,0.5)]", label: "Diamond Apex" },
+const gemColors: Record<GemType, { label: string; code: string }> = {
+  ruby: { label: "Ruby Core", code: "RBY" },
+  sapphire: { label: "Sapphire Mind", code: "SPH" },
+  emerald: { label: "Emerald Shield", code: "EMR" },
+  amber: { label: "Amber Flux", code: "AMB" },
+  amethyst: { label: "Amethyst Sight", code: "AMT" },
+  topaz: { label: "Topaz Forge", code: "TPZ" },
+  diamond: { label: "Diamond Apex", code: "DMD" },
 };
 
 const sizes = {
@@ -35,7 +35,7 @@ const Gem3D = ({ type, active = false, selected = false, size = "md", onClick }:
       onClick={onClick}
       className="flex flex-col items-center gap-2 outline-none"
       whileTap={{ scale: 0.95 }}
-      animate={selected ? { y: -12 } : { y: 0 }}
+      animate={selected ? { y: -8 } : { y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       <motion.div
@@ -44,50 +44,47 @@ const Gem3D = ({ type, active = false, selected = false, size = "md", onClick }:
           "relative flex items-center justify-center",
           active ? "animate-float" : ""
         )}
-        animate={selected ? { scale: 1.15 } : { scale: 1 }}
+        animate={selected ? { scale: 1.1 } : { scale: 1 }}
       >
-        {/* Gem shape */}
+        {/* Gem shape — monochrome */}
         <div
           className={cn(
-            "w-full h-full rounded-lg rotate-45 transition-all duration-500",
+            "w-full h-full transition-all duration-500",
             active
-              ? cn("bg-gradient-to-br", gem.main, gem.glow)
-              : "bg-muted/50 border border-border",
-            selected && active && "animate-pulse-glow"
+              ? cn(
+                  "bg-foreground",
+                  selected && "animate-pulse-glow"
+                )
+              : "bg-muted border border-border"
           )}
           style={{
             clipPath: "polygon(50% 0%, 100% 35%, 85% 100%, 15% 100%, 0% 35%)",
-            transform: "rotate(0deg)",
           }}
         />
-        {/* Inner glow */}
+        {/* Inner highlight */}
         {active && (
           <div
-            className={cn(
-              "absolute inset-2 rounded-lg opacity-50 bg-gradient-to-br",
-              gem.main
-            )}
+            className="absolute inset-3 bg-background opacity-30"
             style={{
               clipPath: "polygon(50% 0%, 100% 35%, 85% 100%, 15% 100%, 0% 35%)",
-              filter: "blur(4px)",
             }}
           />
         )}
         {/* Lock icon for inactive */}
         {!active && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="1" ry="1" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
         )}
       </motion.div>
       <span className={cn(
-        "text-xs font-medium transition-colors",
+        "font-mono text-[8px] uppercase tracking-tech transition-colors",
         active ? "text-foreground" : "text-muted-foreground"
       )}>
-        {gem.label}
+        {gem.code}
       </span>
     </motion.button>
   );

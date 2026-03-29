@@ -21,21 +21,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Anti-gravity grid background */}
-      <div className="fixed inset-0 grid-bg animate-grid-scroll opacity-40 pointer-events-none" />
+      {/* Grid background */}
+      <div className="fixed inset-0 grid-bg opacity-100 pointer-events-none" />
 
-      {/* Ambient glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-ruby/5 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Main content - shifts right on desktop for sidebar */}
-      <main className="relative z-10 max-w-lg mx-auto px-4 pt-12 pb-24 md:max-w-2xl lg:max-w-5xl lg:ml-56 lg:mr-auto lg:px-8 lg:pt-8 lg:pb-12 xl:max-w-6xl">
+      {/* Main content */}
+      <main className="relative z-10 max-w-lg mx-auto px-6 pt-12 pb-24 md:max-w-2xl lg:max-w-5xl lg:ml-56 lg:mr-auto lg:px-12 lg:pt-10 lg:pb-12 xl:max-w-6xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeView}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.25 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
             <ActiveComponent />
           </motion.div>

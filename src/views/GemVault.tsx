@@ -26,14 +26,15 @@ const GemVault = () => {
   const selectedGem = gems.find(g => g.type === selected)!;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <h1 className="text-2xl font-bold tracking-tight lg:text-3xl">Gem Vault</h1>
-        <p className="text-xs text-muted-foreground mt-1">Collect & activate NFC gems</p>
+        <span className="tech-label mb-2 block opacity-50">INDEX: VAULT_01</span>
+        <h1 className="font-headline text-4xl font-bold tracking-tight uppercase lg:text-5xl">Gem Vault</h1>
+        <p className="tech-label mt-2">Collect & activate NFC gems</p>
       </motion.div>
 
-      {/* Mobile: horizontal scroll | Desktop: grid */}
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 scrollbar-hide lg:grid lg:grid-cols-7 lg:overflow-visible lg:mx-0 lg:px-0 lg:gap-6">
+      {/* Gems — horizontal scroll on mobile, grid on desktop */}
+      <div className="flex gap-6 overflow-x-auto pb-4 -mx-2 px-2 scrollbar-hide lg:grid lg:grid-cols-7 lg:overflow-visible lg:mx-0 lg:px-0 lg:gap-6">
         {gems.map(gem => (
           <Gem3D
             key={gem.type}
@@ -51,28 +52,28 @@ const GemVault = () => {
         <GlassCard
           key={selected}
           variant="strong"
-          className="p-6 space-y-4 lg:max-w-xl"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
+          className="p-6 space-y-5 lg:max-w-xl"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
         >
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold">{gemColors[selected].label}</h2>
-            <span className={`text-xs px-2 py-1 rounded-full ${selectedGem.active ? "bg-emerald/20 text-emerald" : "bg-muted text-muted-foreground"}`}>
-              {selectedGem.active ? "Active" : "Locked"}
+            <h2 className="font-headline text-lg font-bold uppercase tracking-wide">{gemColors[selected].label}</h2>
+            <span className={`tech-label px-2 py-1 border ${selectedGem.active ? "border-foreground/30 text-foreground" : "border-border text-muted-foreground"}`}>
+              {selectedGem.active ? "ACTIVE" : "LOCKED"}
             </span>
           </div>
 
           {/* Power Bar */}
           <div>
-            <div className="flex justify-between text-xs text-muted-foreground mb-2">
-              <span className="flex items-center gap-1"><Zap size={12} /> Power Level</span>
+            <div className="flex justify-between tech-label mb-2">
+              <span className="flex items-center gap-1"><Zap size={10} /> POWER_LEVEL</span>
               <span>{selectedGem.power}%</span>
             </div>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
+            <div className="h-[2px] bg-border overflow-hidden">
               <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-ruby to-ruby-glow"
+                className="h-full bg-foreground"
                 initial={{ width: 0 }}
                 animate={{ width: `${selectedGem.power}%` }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
@@ -81,24 +82,24 @@ const GemVault = () => {
           </div>
 
           {/* Linked Agent */}
-          <div className="flex items-center gap-2 text-sm">
-            <Link size={14} className="text-muted-foreground" />
-            <span className="text-muted-foreground">Linked Agent:</span>
-            <span className="font-medium">{selectedGem.agent}</span>
+          <div className="flex items-center gap-2">
+            <Link size={12} className="text-muted-foreground" />
+            <span className="tech-label">LINKED_AGENT:</span>
+            <span className="font-mono text-[10px] uppercase tracking-tech text-foreground">{selectedGem.agent}</span>
           </div>
 
           {/* Action Button */}
           <motion.button
-            whileTap={{ scale: 0.97 }}
-            className={`w-full py-3 rounded-xl font-semibold text-sm transition-all min-h-[44px] ${
+            whileTap={{ scale: 0.98 }}
+            className={`w-full py-3 font-mono text-[10px] uppercase tracking-tech-wider transition-all min-h-[44px] border ${
               selectedGem.active
-                ? "bg-gradient-to-r from-ruby to-ruby-glow text-primary-foreground ruby-glow-sm"
-                : "glass border border-border text-muted-foreground"
+                ? "bg-foreground text-background border-foreground hover:bg-foreground/90"
+                : "bg-transparent text-muted-foreground border-border hover:border-foreground/30"
             }`}
           >
             {selectedGem.active ? "Activate Agent" : (
               <span className="flex items-center justify-center gap-2">
-                <Scan size={16} /> Scan NFC to Unlock
+                <Scan size={14} /> Scan NFC to Unlock
               </span>
             )}
           </motion.button>
